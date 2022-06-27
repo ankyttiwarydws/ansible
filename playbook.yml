@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - yum:
+        name:
+          - httpd
+        state: present
+    - service: name=httpd state=started enabled=yes
+    - raw: "echo Welcome to in28minutes | sudo tee /var/www/html/index.html"
+  
+  tasks:
+    - name: latest version of all required packages installed
+      apt:
+        name:
+          - mariadb-server
+          - php
+          - php-mysql
+        state: latest
